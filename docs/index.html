@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Directional Textual Inversion</title>
+  <meta name="description" content="Directional Textual Inversion for Personalized Text-to-Image Generation">
+  <meta name="keywords" content="textual inversion, text-to-image, diffusion models, personalization, deep learning">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Directional Textual Inversion">
+  <meta property="og:description" content="Directional Textual Inversion for Personalized Text-to-Image Generation">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kunheek.github.io/dti">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Serif:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+  <!-- KaTeX for equations -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <h1 class="title">Directional Textual Inversion<br>for Personalized Text-to-Image Generation</h1>
+
+      <div class="authors">
+        <span class="author"><a href="https://kunheek.github.io" target="_blank">Kunhee Kim</a><sup>1*</sup></span>
+        <span class="author"><a href="https://nahyeonkaty.github.io" target="_blank">NaHyeon
+            Park</a><sup>1*</sup></span>
+        <span class="author"><a href="https://sites.google.com/sookmyung.ac.kr/aiv-lab-smwu/home?authuser=0"
+            target="_blank">Kibeom Hong</a><sup>2</sup></span>
+        <span class="author"><a href="https://kaist-cvml.github.io" target="_blank">Hyunjung Shim</a><sup>1</sup></span>
+      </div>
+
+      <div class="affiliations">
+        <span class="affiliation"><sup>*</sup>Equal Contribution</span>
+        <span class="affiliation"><sup>1</sup>KAIST</span>
+        <span class="affiliation"><sup>2</sup>Sookmyung Women's University</span>
+      </div>
+
+      <div class="venue">
+        <!-- UPDATED -->
+        <span>ICLR 2026</span>
+      </div>
+
+      <div class="links">
+        <!-- UPDATED links -->
+        <a href="https://arxiv.org/abs/2512.13672" class="btn" title="Paper"><i class="ai ai-arxiv"></i> arXiv</a>
+        <a href="https://github.com/kunheek/dti" class="btn" target="_blank"><i class="fab fa-github"></i> Code</a>
+        <!-- <a href="assets/paper.pdf" class="btn" title="PDF"><i class="fas fa-file-pdf"></i> PDF</a> -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Teaser -->
+  <section class="teaser">
+    <div class="container">
+      <figure class="teaser-figure">
+        <img src="assets/teaser.png" alt="Teaser showcasing DTI results">
+        <figcaption>
+          <strong>Directional Textual Inversion (DTI)</strong> personalizes concepts while preserving editability by
+          constraining learned embeddings to an in-distribution magnitude and optimizing only directional semantics.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Abstract -->
+  <section class="section abstract">
+    <div class="container">
+      <h2 class="section-title">Abstract</h2>
+      <!-- UPDATED with paper-accurate abstract -->
+      <p class="abstract-text">
+        Textual Inversion (TI) is an efficient approach to text-to-image personalization but often fails on
+        complex prompts due to embedding norm inflation—learned tokens drift to out-of-distribution magnitudes,
+        degrading prompt conditioning in pre-norm Transformers. We show empirically and theoretically that semantic
+        information is primarily encoded in the <em>direction</em> of token embeddings, while excessive magnitudes
+        impair positional information and residual updates. We introduce <strong>Directional Textual Inversion
+          (DTI)</strong>,
+        which constrains the embedding norm to an in-distribution scale and learns only the direction on the unit
+        hypersphere via Riemannian SGD. We cast direction learning as MAP estimation under a von Mises–Fisher prior,
+        producing a constant-direction prior gradient that is simple and efficient to incorporate. DTI improves text
+        fidelity over TI and TI-variants while maintaining subject similarity, and uniquely enables smooth,
+        semantically meaningful interpolation (slerp) between personalized concepts. These findings suggest
+        direction-only
+        optimization as a robust and scalable solution for prompt-faithful personalization.
+      </p>
+    </div>
+  </section>
+
+  <!-- Method -->
+  <section class="section method">
+    <div class="container">
+      <h2 class="section-title">Method</h2>
+
+      <figure class="method-figure">
+        <img src="assets/method.png" alt="Method overview">
+        <!-- UPDATED caption -->
+        <figcaption>
+          <strong>DTI decouples magnitude and direction.</strong>
+          Standard TI freely optimizes embeddings, often leading to out-of-distribution norms and semantic drift.
+          DTI fixes the magnitude to an in-distribution value and optimizes only the direction using Riemannian SGD
+          with a von Mises-Fisher prior, stabilizing optimization and improving prompt fidelity.
+        </figcaption>
+      </figure>
+
+      <div class="method-description">
+        <h3>Why Direction Matters</h3>
+        <p>
+          We find that semantics in CLIP and Gemma token embeddings are predominantly encoded in direction. TI often
+          learns embeddings with very large norms, causing <em>positional attenuation</em> and <em>residual-update
+            stagnation</em> in pre-norm Transformers. This leads to missing details in complex prompts.
+        </p>
+
+        <h3>Directional Optimization</h3>
+        <!-- UPDATED -->
+        <p>
+          DTI parameterizes the embedding as $e = m \mathbf{v}$, where the magnitude $m^*$ is fixed to
+          an in-distribution value and $\mathbf{v}$ lies on the unit sphere. Updates are performed via Riemannian
+          SGD with tangent-space projection and spherical retraction.
+        </p>
+
+        <h3>Directional Prior (vMF)</h3>
+        <p>
+          We impose a von Mises-Fisher prior encouraging the learned direction to remain semantically meaningful:
+        </p>
+        <div class="equation">
+          $$\mathcal{L}_{\text{DTI}} = \mathcal{L}_{\text{data}} - \kappa \, \boldsymbol{\mu}^\top \mathbf{v}$$
+        </div>
+        <!-- UPDATED explanation -->
+        <p>
+          This yields a constant gradient term $-\kappa \mathbf{\mu}$, providing stable regularization analogous to
+          weight decay but in directional space.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section gallery">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center;">Results</h2>
+
+      <!-- Subject selector buttons -->
+      <div class="subject-tabs">
+        <button class="subject-btn active" data-subject="cat">Cat</button>
+        <button class="subject-btn" data-subject="dog">Dog</button>
+        <button class="subject-btn" data-subject="poop_emoji">Poop Emoji</button>
+      </div>
+
+      <!-- Subject panels -->
+      <div class="subject-panel active" id="cat">
+        <div class="result-row">
+          <div class="reference-images">
+            <img src="assets/gallery/cat.jpg" alt="Cat Reference">
+            <span class="reference-label">Reference</span>
+          </div>
+          <div class="generated-images">
+            <figure class="gallery-item">
+              <img src="assets/gallery/cat_result1.jpg" alt="Cat Result 1">
+              <figcaption>"A &lt;cat&gt; wearing a police outfit"</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/gallery/cat_result2.jpg" alt="Cat Result 2">
+              <figcaption>"A &lt;cat&gt; with a beautiful sunset"</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <div class="subject-panel" id="dog">
+        <div class="result-row">
+          <div class="reference-images">
+            <img src="assets/gallery/dog8.jpg" alt="Dog Reference">
+            <span class="reference-label">Reference</span>
+          </div>
+          <div class="generated-images">
+            <figure class="gallery-item">
+              <img src="assets/gallery/dog8_result1.jpg" alt="Dog Result 1">
+              <figcaption>"A &lt;dog&gt; wearing a red hat"</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/gallery/dog8_result2.jpg" alt="Dog Result 2">
+              <figcaption>"A &lt;dog&gt; as a firefighter, extinguishing a fire in a skyscraper"</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <div class="subject-panel" id="poop_emoji">
+        <div class="result-row">
+          <div class="reference-images">
+            <img src="assets/gallery/poop_emoji.jpg" alt="Poop Emoji Reference">
+            <span class="reference-label">Reference</span>
+          </div>
+          <div class="generated-images">
+            <figure class="gallery-item">
+              <img src="assets/gallery/poop_emoji_result1.jpg" alt="Poop Emoji Result 1">
+              <figcaption>"A &lt;toy&gt; in a luxurious interior living room"</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/gallery/poop_emoji_result2.jpg" alt="Poop Emoji Result 2">
+              <figcaption>"A &lt;toy&gt; on top of a mirror"</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Citation -->
+  <section class="section citation">
+    <div class="container">
+      <h2 class="section-title">Citation</h2>
+      <p>If you find our work useful, please cite:</p>
+      <div class="bibtex-container">
+        <button class="copy-btn" onclick="copyBibtex()"><i class="fas fa-copy"></i> Copy</button>
+        <pre class="bibtex">
+<code>@article{kim2025directional,
+  title={Directional Textual Inversion for Personalized Text-to-Image Generation},
+  author={Kim, Kunhee and Park, NaHyeon and Hong, Kibeom and Shim, Hyunjung},
+  journal={arXiv preprint arXiv:2512.13672},
+  year={2025}
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Kunhee Kim, NaHyeon Park. All rights reserved.</p>
+      <p class="template-credit">Website template inspired by <a href="https://nerfies.github.io"
+          target="_blank">Nerfies</a>.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

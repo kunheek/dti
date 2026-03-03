@@ -1,0 +1,56 @@
+{
+  "cat_statue": {
+    "path": "datasets/ti/cat_statue",
+    "class": "statue",
+    "subject": "cat statue",
+    "initialization": "statue"
+  },
+  "clock": {
+    "path": "datasets/ti/clock",
+    "class": "clock",
+    "subject": "alarm clock",
+    "initialization": "clock"
+  },
+  "colorful_teapot": {
+    "path": "datasets/ti/colorful_teapot",
+    "class": "teapot",
+    "subject": "colorful teapot",
+    "initialization": "teapot"
+  },
+  "elephant": {
+    "path": "datasets/ti/elephant",
+    "class": "elephant",
+    "subject": "elephant statue",
+    "initialization": "statue"
+  },
+  "mug_skulls": {
+    "path": "datasets/ti/mug_skulls",
+    "class": "mug",
+    "subject": "skull mug",
+    "initialization": "mug"
+  },
+  "physics_mug": {
+    "path": "datasets/ti/physics_mug",
+    "class": "mug",
+    "subject": "mug with physics equations",
+    "initialization": "mug"
+  },
+  "red_teapot": {
+    "path": "datasets/ti/red_teapot",
+    "class": "teapot",
+    "subject": "red teapot",
+    "initialization": "teapot"
+  },
+  "round_bird": {
+    "path": "datasets/ti/round_bird",
+    "class": "statue",
+    "subject": "round bird statue",
+    "initialization": "statue"
+  },
+  "thin_bird": {
+    "path": "datasets/ti/thin_bird",
+    "class": "statue",
+    "subject": "thin bird statue",
+    "initialization": "statue"
+  }
+}

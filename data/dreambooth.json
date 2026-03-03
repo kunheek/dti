@@ -1,0 +1,198 @@
+{
+  "backpack": {
+    "path": "data/dreambooth/backpack",
+    "images": ["00.jpg", "01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"],
+    "class": "backpack",
+    "initialization": "red backpack",
+    "template": [
+      "A person is outdoors against a cloudy sky wearing a {}",
+      "Mountains and greenery appear behind a {}",
+      "Moss and forest plants surround a {}",
+      "A fallen tree supports a {}",
+      "An object hangs from a moss-covered log in a forest, {}",
+      "An object is worn by a person beneath a cloudy sky, {}"
+    ]
+  },
+  "backpack_dog": {
+    "path": "data/dreambooth/backpack_dog",
+    "images": ["00.jpg", "01.jpg", "02.jpg", "03.jpg", "04.jpg"],
+    "class": "backpack",
+    "initialization": "dog backpack",
+    "template": "imagenet_small"
+  },
+  "bear_plushie": {
+    "path": "data/dreambooth/bear_plushie",
+    "images": ["00.jpg", "01.jpg", "02.jpg", "03.jpg", "04.jpg"],
+    "class": "stuffed animal",
+    "initialization": "stuffed animal",
+    "template": "imagenet_small"
+  },
+  "berry_bowl": {
+    "path": "data/dreambooth/berry_bowl",
+    "images": ["00.jpg", "01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"],
+    "class": "bowl",
+    "initialization": "bowl",
+    "template": "imagenet_small"
+  },
+  "can": {
+    "path": "data/dreambooth/can",
+    "images": ["00.jpg", "01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"],
+    "class": "can",
+    "initialization": "beer can",
+    "template": "imagenet_small"
+  },
+  "candle": {
+    "path": "data/dreambooth/candle",
+    "images": ["00.jpg", "01.jpg", "02.jpg", "03.jpg", "04.jpg"],
+    "class": "candle",
+    "initialization": "jar",
+    "template": "imagenet_small"
+  },
+  "cat": {
+    "path": "data/dreambooth/cat",
+    "images": ["00.jpg", "01.jpg", "02.jpg", "03.jpg", "04.jpg"],
+    "class": "cat",
+    "initialization": "cat",
+    "template": "imagenet_small"
+  },
+  "cat2": {
+    "path": "data/dreambooth/cat2",
+    "images": ["00.jpg", "01.jpg", "02.jpg", "03.jpg", "04.jpg"],
+    "class": "cat",
+    "initialization": "cat",
+    "template": "imagenet_small"
+  },
+  "clock": {
+    "path": "data/dreambooth/clock",
+    "images": ["00.jpg", "01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"],
+    "class": "clock",
+    "initialization": "alarm clock",
+    "template": "imagenet_small"
+  },
+  "colorful_sneaker": {
+    "path": "data/dreambooth/colorful_sneaker",
+    "class": "sneaker",
+    "initialization": "colorful sneaker",
+    "template": "imagenet_small"
+  },
+  "dog": {
+    "path": "data/dreambooth/dog",
+    "class": "dog",
+    "initialization": "dog",
+    "template": "imagenet_small"
+  },
+  "dog2": {
+    "path": "data/dreambooth/dog2",
+    "class": "dog",
+    "initialization": "dog",
+    "template": "imagenet_small"
+  },
+  "dog3": {
+    "path": "data/dreambooth/dog3",
+    "class": "dog",
+    "initialization": "dog",
+    "template": "imagenet_small"
+  },
+  "dog5": {
+    "path": "data/dreambooth/dog5",
+    "class": "dog",
+    "initialization": "dog",
+    "template": "imagenet_small"
+  },
+  "dog6": {
+    "path": "data/dreambooth/dog6",
+    "class": "dog",
+    "initialization": "dog",
+    "template": "imagenet_small"
+  },
+  "dog7": {
+    "path": "data/dreambooth/dog7",
+    "class": "dog",
+    "initialization": "dog",
+    "template": "imagenet_small"
+  },
+  "dog8": {
+    "path": "data/dreambooth/dog8",
+    "class": "dog",
+    "initialization": "dog",
+    "template": "imagenet_small"
+  },
+  "duck_toy": {
+    "path": "data/dreambooth/duck_toy",
+    "class": "toy",
+    "initialization": "rubber duck",
+    "template": "imagenet_small"
+  },
+  "fancy_boot": {
+    "path": "data/dreambooth/fancy_boot",
+    "class": "boot",
+    "initialization": "boot",
+    "template": "imagenet_small"
+  },
+  "grey_sloth_plushie": {
+    "path": "data/dreambooth/grey_sloth_plushie",
+    "class": "stuffed animal",
+    "initialization": "stuffed animal",
+    "template": "imagenet_small"
+  },
+  "monster_toy": {
+    "path": "data/dreambooth/monster_toy",
+    "class": "toy",
+    "initialization": "monster toy",
+    "template": "imagenet_small"
+  },
+  "pink_sunglasses": {
+    "path": "data/dreambooth/pink_sunglasses",
+    "class": "sunglasses",
+    "initialization": "sunglasses",
+    "template": "imagenet_small"
+  },
+  "poop_emoji": {
+    "path": "data/dreambooth/poop_emoji",
+    "class": "toy",
+    "initialization": "poop emoji",
+    "template": "imagenet_small"
+  },
+  "rc_car": {
+    "path": "data/dreambooth/rc_car",
+    "class": "toy",
+    "initialization": "toy",
+    "template": "imagenet_small"
+  },
+  "red_cartoon": {
+    "path": "data/dreambooth/red_cartoon",
+    "class": "cartoon",
+    "initialization": "character",
+    "template": "imagenet_small"
+  },
+  "robot_toy": {
+    "path": "data/dreambooth/robot_toy",
+    "class": "toy",
+    "initialization": "robot",
+    "template": "imagenet_small"
+  },
+  "shiny_sneaker": {
+    "path": "data/dreambooth/shiny_sneaker",
+    "class": "sneaker",
+    "initialization": "sneaker",
+    "template": "imagenet_small"
+  },
+  "teapot": {
+    "path": "data/dreambooth/teapot",
+    "class": "teapot",
+    "initialization": "teapot",
+    "template": "imagenet_small"
+  },
+  "vase": {
+    "path": "data/dreambooth/vase",
+    "class": "vase",
+    "initialization": "vase",
+    "template": "imagenet_small"
+  },
+  "wolf_plushie": {
+    "path": "data/dreambooth/wolf_plushie",
+    "class": "stuffed animal",
+    "initialization": "stuffed animal",
+    "template": "imagenet_small"
+  }
+}

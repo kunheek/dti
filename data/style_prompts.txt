@@ -1,0 +1,40 @@
+A toothbrush in {} style
+A water bottle in {} style
+A kitchen sink in {} style
+A laptop charger in {} style
+A coffee mug in {} style
+A computer in {} style
+A dog in {} style
+A light bulb in {} style
+A cat in {} style
+A hairbrush in {} style
+A desk lamp in {} style
+A garden hose in {} style
+A microwave oven in {} style
+A floor lamp in {} style
+A shower curtain in {} style
+A salt shaker in {} style
+A ceiling fan in {} style
+A electric kettle in {} style
+A grocery bag in {} style
+A laundry basket in {} style
+A remote control in {} style
+A houseplant in {} style
+An orange in {} style
+A chocolate cake in {} style
+A refrigerator in {} style
+A sofa in {} style
+An elephant in {} style
+A door knob in {} style
+A backpack in {} style
+A penguin in {} style
+A bathrobe in {} style
+A cereal bowl in {} style
+A wall clock in {} style
+A swimmer in {} style
+A tablecloth in {} style
+A light switch in {} style
+A cloud in {} style
+A flower vase in {} style
+A teddy bear in {} style
+A horse in {} style

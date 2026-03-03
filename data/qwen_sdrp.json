@@ -1,0 +1,232 @@
+{
+  "00": {
+    "instance": "00",
+    "init_token": "Watercolor landscape sketch",
+    "images": [
+      {
+        "image_path": "data/styledrop/00.png",
+        "description": "A serene coastal scene with boats near cliffs and distant hills in a {} style."
+      }
+    ]
+  },
+  "01": {
+    "instance": "01",
+    "init_token": "Watercolor architectural rendering",
+    "images": [
+      {
+        "image_path": "data/styledrop/01.png",
+        "description": "A grand Tudor-style house with intricate half-timbering and a prominent arched doorway in a {} style."
+      }
+    ]
+  },
+  "02": {
+    "instance": "02",
+    "init_token": "Watercolor abstract expressionism",
+    "images": [
+      {
+        "image_path": "data/styledrop/02.png",
+        "description": "A vibrant, colorful cat with striking blue eyes gazes intently in a {} style."
+      }
+    ]
+  },
+  "03": {
+    "instance": "03",
+    "init_token": "Childlike watercolor painting",
+    "images": [
+      {
+        "image_path": "data/styledrop/03.png",
+        "description": "A colorful array of flowers in various stages of bloom stands tall against a white background in a {} style."
+      }
+    ]
+  },
+  "04": {
+    "instance": "04",
+    "init_token": "Impressionistic oil painting",
+    "images": [
+      {
+        "image_path": "data/styledrop/04.png",
+        "description": "A swirling night sky filled with stars and a crescent moon over a small village in a {} style."
+      }
+    ]
+  },
+  "05": {
+    "instance": "05",
+    "init_token": "Expressive ink drawing",
+    "images": [
+      {
+        "image_path": "data/styledrop/05.png",
+        "description": "A swirling night sky filled with stars and a crescent moon above a village in a {} style."
+      }
+    ]
+  },
+  "06": {
+    "instance": "06",
+    "init_token": "Impressionistic pointillism painting",
+    "images": [
+      {
+        "image_path": "data/styledrop/06.png",
+        "description": "A man with a beard and mustache gazes directly at the viewer in a {} style."
+      }
+    ]
+  },
+  "07": {
+    "instance": "07",
+    "init_token": "Impressionistic oil portrait",
+    "images": [
+      {
+        "image_path": "data/styledrop/07.png",
+        "description": "A man wearing a straw hat and a striped jacket stands against a swirling background in an {} style."
+      }
+    ]
+  },
+  "08": {
+    "instance": "08",
+    "init_token": "Flat vector illustration",
+    "images": [
+      {
+        "image_path": "data/styledrop/08.png",
+        "description": "A woman walks her dog on a leash under a starry night sky in a {} style."
+      }
+    ]
+  },
+  "09": {
+    "instance": "09",
+    "init_token": "'Flat design vector art'",
+    "images": [
+      {
+        "image_path": "data/styledrop/09.png",
+        "description": "A woman sits at a desk working on a laptop surrounded by plants and books in a {} style."
+      }
+    ]
+  },
+  "10": {
+    "instance": "10",
+    "init_token": "Stylized digital drawing",
+    "images": [
+      {
+        "image_path": "data/styledrop/10.png",
+        "description": "A tall evergreen tree stands upright in a {} style."
+      }
+    ]
+  },
+  "11": {
+    "instance": "11",
+    "init_token": "Abstract digital artwork",
+    "images": [
+      {
+        "image_path": "data/styledrop/11.png",
+        "description": "Colorful, flowing lines intertwine against a black background in a dynamic abstract digital artwork style."
+      }
+    ]
+  },
+  "12": {
+    "instance": "12",
+    "init_token": "X-ray-like glow art",
+    "images": [
+      {
+        "image_path": "data/styledrop/12.png",
+        "description": "Three glowing mushrooms stand tall against a black background in a {} style."
+      }
+    ]
+  },
+  "13": {
+    "instance": "13",
+    "init_token": "'Gothic stained glass effect'",
+    "images": [
+      {
+        "image_path": "data/styledrop/13.png",
+        "description": "A black cat gracefully leaps across a bench in a dilapidated room with a {} style."
+      }
+    ]
+  },
+  "14": {
+    "instance": "14",
+    "init_token": "Mystical foggy forest",
+    "images": [
+      {
+        "image_path": "data/styledrop/14.png",
+        "description": "A sunlit path through a misty forest in a {} style."
+      }
+    ]
+  },
+  "15": {
+    "instance": "15",
+    "init_token": "'Cartoonish 3D render'",
+    "images": [
+      {
+        "image_path": "data/styledrop/15.png",
+        "description": "Two watermelon slices stand upright on a red surface under a sky filled with fluffy clouds in a {} style."
+      }
+    ]
+  },
+  "16": {
+    "instance": "16",
+    "init_token": "'Cartoonish 3D render'",
+    "images": [
+      {
+        "image_path": "data/styledrop/16.png",
+        "description": "A charming blue house with a yellow roof and green bushes in front stands out in a {} style."
+      }
+    ]
+  },
+  "17": {
+    "instance": "17",
+    "init_token": "'High-tech digital sculpture'",
+    "images": [
+      {
+        "image_path": "data/styledrop/17.png",
+        "description": "A metallic fist giving a thumbs-up gesture in a {} style."
+      }
+    ]
+  },
+  "18": {
+    "instance": "18",
+    "init_token": "'Cartoonish 3D rendering'",
+    "images": [
+      {
+        "image_path": "data/styledrop/18.png",
+        "description": "A character with short hair and a surprised expression stands in a {} style."
+      }
+    ]
+  },
+  "19": {
+    "instance": "19",
+    "init_token": "Childlike crayon drawing",
+    "images": [
+      {
+        "image_path": "data/styledrop/19.png",
+        "description": "An orange bear holding a stick in a {} style."
+      }
+    ]
+  },
+  "20": {
+    "instance": "20",
+    "init_token": "Metallic fluid sculpture",
+    "images": [
+      {
+        "image_path": "data/styledrop/20.png",
+        "description": "A classical bust of a man with flowing hair in a metallic fluid sculpture style."
+      }
+    ]
+  },
+  "21": {
+    "instance": "21",
+    "init_token": "Liquid gold sculpture",
+    "images": [
+      {
+        "image_path": "data/styledrop/21.png",
+        "description": "A golden flower with petals that appear to be dripping in a {} style."
+      }
+    ]
+  },
+  "22": {
+    "instance": "22",
+    "init_token": "'Carved wood sculpture'",
+    "images": [
+      {
+        "image_path": "data/styledrop/22.png",
+        "description": "A detailed wooden carving of a bearded figure wearing a helmet stands in a forest setting in a {} style."
+      }
+    ]
+  }
+}
