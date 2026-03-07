@@ -187,6 +187,8 @@ def add_new_token(
     joiner: str = "",
     xinit_max_length: int | None = None,
 ) -> tuple[NewToken, torch.Tensor]:
+    tokenizer_base_size = len(tokenizer)
+
     if isinstance(init_token, str):
         init_token_ids = tokenizer.encode(init_token, add_special_tokens=False)
         num_vectors = len(init_token_ids)
@@ -209,6 +211,38 @@ def add_new_token(
 
     # Resize the token embeddings as we are adding new special tokens to the tokenizer
     embeddings = text_encoder.get_input_embeddings()
+
+    # Some tokenizers (e.g., certain LLM tokenizers) can report a vocab size that
+    # is smaller than the embedding table size. In that case, DTI's boundary for
+    # "added tokens" must follow tokenizer IDs, otherwise added-token offsets can
+    # become negative.
+    if isinstance(embeddings, (DtiTokenEmbeddingLegacy, DtiTokenEmbedding)):
+        if (
+            embeddings.original_vocab_size != tokenizer_base_size
+            and getattr(embeddings, "added_tokens_embeddings", None) is not None
+            and embeddings.added_tokens_embeddings.weight.shape[0] == 0
+        ):
+            warnings.warn(
+                "Tokenizer size and embedding original_vocab_size differ "
+                f"({tokenizer_base_size} vs {embeddings.original_vocab_size}). "
+                "Aligning DTI added-token boundary to tokenizer size.",
+                UserWarning,
+                stacklevel=2,
+            )
+            embeddings.original_vocab_size = tokenizer_base_size
+        elif (
+            embeddings.original_vocab_size != tokenizer_base_size
+            and isinstance(embeddings, DtiTokenEmbeddingLegacy)
+            and embeddings.scales.weight.shape[0] == 0
+        ):
+            warnings.warn(
+                "Tokenizer size and embedding original_vocab_size differ "
+                f"({tokenizer_base_size} vs {embeddings.original_vocab_size}). "
+                "Aligning DTI added-token boundary to tokenizer size.",
+                UserWarning,
+                stacklevel=2,
+            )
+            embeddings.original_vocab_size = tokenizer_base_size
 
     if isinstance(embeddings, (DtiTokenEmbeddingLegacy, DtiTokenEmbedding)):
         # Use unified resize API - handles original, added tokens, and scales automatically
@@ -258,7 +292,7 @@ def add_new_token(
         )  # (num_content_tokens, d)
         xinit_scales = xinit_embeds.norm(dim=-1)  # (num_content_tokens,)
         print(
-            f"[CrossInit] contextual embedding norms (used as scale): "
+            "[CrossInit] contextual embedding norms (used as scale): "
             + ", ".join(f"{s:.4f}" for s in xinit_scales.tolist())
         )
 

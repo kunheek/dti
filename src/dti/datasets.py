@@ -274,7 +274,7 @@ class TextualInversionDataset(BaseDataset):
 
 class SdxlDataset(BaseDataset):
     """
-    Textual inversion dataset for dual tokenizer models (SDXL, SD3).
+    Textual inversion dataset for dual tokenizer models (SDXL).
     """
 
     def __init__(

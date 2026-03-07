@@ -33,7 +33,7 @@ Textual Inversion (TI) is efficient but often suffers from **embedding norm infl
 - **Spherical optimization**: Optimizing only the direction on the unit hypersphere via Riemannian SGD
 - **vMF prior**: Using a von Mises-Fisher prior for semantic coherence
 
-DTI achieves superior text fidelity and subject preservation on **Stable Diffusion XL (SDXL)** and **SANA**.
+DTI achieves superior text fidelity and subject preservation on **Stable Diffusion XL (SDXL)**, **SANA**, and **Wan2.1-T2V-1.3B** (image-as-1-frame-video setup).
 
 Our implementation is built on top of the HuggingFace [`diffusers`](https://github.com/huggingface/diffusers) library and is fully compatible with existing Textual Inversion (TI) pipelines.
 
@@ -103,6 +103,17 @@ python exps/ours_sana.py -g 0 -m sana1.5_1.6b
 ```
 
 > Note: Our paper reports SANA with learning rate `0.02` and `1000` steps, but later experiments showed better performance with learning rate `0.01` and `500` steps. We recommend using the `0.01` + `500` combination for SANA.
+
+### Train on Wan2.1-T2V-1.3B (image-as-video, 1 frame)
+
+```bash
+python exps/ours_wan.py -g 2 -m wan2.1_t2v_1.3b
+```
+
+> Wan uses `Wan-AI/Wan2.1-T2V-1.3B-Diffusers`. If you see
+> `ValueError: Unrecognized model ...`, upgrade `transformers` and `diffusers`:
+>
+> `uv pip install --python .venv/bin/python --upgrade "git+https://github.com/huggingface/diffusers.git@main" "transformers>=4.48" "huggingface-hub>=0.34,<1.0"`
 
 ### Evaluate
 

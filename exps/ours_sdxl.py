@@ -104,7 +104,6 @@ def main():
             f"--token_scale={args.scale}",
             f"--kappa={args.kappa}",
             f"--decompose_scale={args.decompose_scale}",
-            # "--zero_pad",  # TODO: check if this is necessary.
             f"--beta={args.beta}",  # RSGD beta.
             "--peft_rank=0",
         ]

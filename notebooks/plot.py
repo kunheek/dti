@@ -18,12 +18,13 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-sns.set(style="whitegrid")
+sns.set_theme(style="whitegrid")
 
 
 # ---------------------------------------------------------------------------
 # helpers
 # ---------------------------------------------------------------------------
+
 
 def _extract_step_from_name(name: str):
     m = re.search(r"(\d+)", name)
@@ -128,6 +129,7 @@ def _collect_metrics_df(folder_path, *, pattern: str | None = None):
 # print summary
 # ---------------------------------------------------------------------------
 
+
 def print_scores(folder_path, *, pattern: str | None = None):
     """Print mean text-alignment and subject-fidelity for each JSON file.
 
@@ -147,8 +149,16 @@ def print_scores(folder_path, *, pattern: str | None = None):
     print(f"{'checkpoint':<50} {'text':>8} {'image':>8}")
     print("-" * 68)
     for _, row in df.iterrows():
-        i = f"{row['subject_fidelity']:.3f}" if pd.notna(row["subject_fidelity"]) else "   N/A"
-        t = f"{row['text_alignment']:.3f}" if pd.notna(row["text_alignment"]) else "   N/A"
+        i = (
+            f"{row['subject_fidelity']:.3f}"
+            if pd.notna(row["subject_fidelity"])
+            else "   N/A"
+        )
+        t = (
+            f"{row['text_alignment']:.3f}"
+            if pd.notna(row["text_alignment"])
+            else "   N/A"
+        )
         print(f"{row['checkpoint']:<50} {i:>8} {t:>8}")
     print("-" * 68)
     # print(f"{'mean':<50} {df['text_alignment'].mean():>8.3f} {df['subject_fidelity'].mean():>8.3f}")
@@ -157,6 +167,7 @@ def print_scores(folder_path, *, pattern: str | None = None):
 # ---------------------------------------------------------------------------
 # single-experiment plots
 # ---------------------------------------------------------------------------
+
 
 def plot_scores(folder_path, *, pattern=None, figsize=(12, 5), save_path=None):
     all_df = _collect_metrics_df(folder_path, pattern=pattern)
@@ -246,6 +257,7 @@ def plot_xy_trajectory(
 # ---------------------------------------------------------------------------
 # multi-experiment comparison plots
 # ---------------------------------------------------------------------------
+
 
 def compare_scores(
     *folders,
@@ -409,6 +421,7 @@ def compare_trajectories(
 # single-file plot
 # ---------------------------------------------------------------------------
 
+
 def plot_single_file(json_path, *, figsize=(14, 6), save_path=None):
     """Plot per-subject scores from a single JSON score file.
 
@@ -479,8 +492,13 @@ def plot_single_file(json_path, *, figsize=(14, 6), save_path=None):
         y_pos = np.arange(len(subjects))
         ax.barh(y_pos, text_scores, color="steelblue", edgecolor="none", height=0.7)
         mean_val = float(np.nanmean(text_scores))
-        ax.axvline(mean_val, color="tomato", linestyle="--", linewidth=1.2,
-                   label=f"mean = {mean_val:.4f}")
+        ax.axvline(
+            mean_val,
+            color="tomato",
+            linestyle="--",
+            linewidth=1.2,
+            label=f"mean = {mean_val:.4f}",
+        )
         ax.set_yticks(y_pos)
         ax.set_yticklabels(subjects, fontsize=9)
         ax.set_xlabel("Score")
@@ -494,8 +512,13 @@ def plot_single_file(json_path, *, figsize=(14, 6), save_path=None):
         y_pos = np.arange(len(subjects))
         ax.barh(y_pos, image_scores, color="darkorange", edgecolor="none", height=0.7)
         mean_val = float(np.nanmean(image_scores))
-        ax.axvline(mean_val, color="tomato", linestyle="--", linewidth=1.2,
-                   label=f"mean = {mean_val:.4f}")
+        ax.axvline(
+            mean_val,
+            color="tomato",
+            linestyle="--",
+            linewidth=1.2,
+            label=f"mean = {mean_val:.4f}",
+        )
         ax.set_yticks(y_pos)
         ax.set_yticklabels(subjects, fontsize=9)
         ax.set_xlabel("Score")

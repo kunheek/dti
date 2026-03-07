@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import inspect
 import json
 from pathlib import Path
 
@@ -135,15 +136,46 @@ def generate_samples(
             seeds_pipe.append(seed)
     if isinstance(identifier, list):
         identifier = identifier[0]
+    call_sig = inspect.signature(pipeline.__call__).parameters
+    is_video_pipeline = "num_frames" in call_sig
+
+    def to_pil_first_frame(video):
+        frame = video[0] if isinstance(video, (list, tuple)) else video
+        if isinstance(frame, Image.Image):
+            return frame
+        if torch.is_tensor(frame):
+            arr = frame.detach().cpu().numpy()
+        else:
+            arr = np.asarray(frame)
+        if arr.dtype != np.uint8:
+            arr = np.clip(arr, 0, 255).astype(np.uint8)
+        return Image.fromarray(arr)
+
     for i in range(0, len(prompts_pipe), batch_size):
         # Sample pairs with given batch size.
         seeds_batch = seeds_pipe[i : i + batch_size]
         prompts_batch = prompts_pipe[i : i + batch_size]
         generators = [torch.Generator(device).manual_seed(seed) for seed in seeds_batch]
-        images = pipeline(
-            prompt=[p.format(identifier) for p in prompts_batch],
-            generator=generators,
-        ).images
+
+        call_kwargs = {
+            "prompt": [p.format(identifier) for p in prompts_batch],
+            "generator": generators,
+        }
+        if is_video_pipeline:
+            call_kwargs["num_frames"] = 1
+            call_kwargs["output_type"] = "pil"
+
+        outputs = pipeline(**call_kwargs)
+        if hasattr(outputs, "images"):
+            images = outputs.images
+        elif hasattr(outputs, "frames"):
+            images = [to_pil_first_frame(video) for video in outputs.frames]
+        else:
+            raise ValueError(
+                f"Unsupported pipeline output type: {type(outputs)}. "
+                "Expected `images` or `frames`."
+            )
+
         for image, prompt, seed in zip(images, prompts_batch, seeds_batch):
             filename = prompt.replace(" ", "_").format(subject)
             seed_dir = Path(sample_dir) / f"{seed}"
@@ -370,6 +402,11 @@ def main():
                 ):
                     embeddings.append(file)
             embeddings = sorted(embeddings)
+            if len(embeddings) == 0:
+                print(
+                    f"No embedding file found for {name} at checkpoint {args.checkpoint}. Skipping generation."
+                )
+                continue
 
             identifiers = load_embeddings(pipeline, embeddings, rescale=args.rescale)
 
@@ -402,7 +439,7 @@ def main():
                     print(f"Failed to load LoRA weights with diffusers: {e}")
                     print("Attempting to load as PEFT model (OFT/LoRA)...")
 
-                    # Get the denoiser model (unet for SDXL, transformer for SD3/Flux/Sana)
+                    # Get the denoiser model (unet for SDXL, transformer for Flux/Sana)
                     denoiser = getattr(pipeline, "unet", None) or getattr(
                         pipeline, "transformer", None
                     )

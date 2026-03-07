@@ -243,7 +243,7 @@ def add_dti_args(parser):
         default="mean",
         help=(
             "The initial scale value for the new token embeddings when using the reparametrization trick. This is used"
-            " to control the initial magnitude of the new token embeddings.",
+            " to control the initial magnitude of the new token embeddings."
         ),
     )
     parser.add_argument(
@@ -445,6 +445,114 @@ def add_sana_specific_args(parser):
     )
 
 
+def add_flux2_specific_args(parser):
+    """Add FLUX.2-specific arguments."""
+    parser.add_argument(
+        "--max_sequence_length",
+        type=int,
+        default=512,
+        help="Maximum sequence length for the FLUX.2 text encoder.",
+    )
+    parser.add_argument(
+        "--text_encoder_out_layers",
+        type=int,
+        nargs="+",
+        default=None,
+        help=(
+            "Optional layer indices used by FLUX.2 text encoding. "
+            "If not set, the pipeline default is used."
+        ),
+    )
+    parser.add_argument(
+        "--guidance_scale",
+        type=float,
+        default=4.0,
+        help="Guidance scale used by FLUX.2 transformer conditioning.",
+    )
+    parser.add_argument(
+        "--weighting_scheme",
+        type=str,
+        default="none",
+        choices=["sigma_sqrt", "logit_normal", "mode", "cosmap", "none"],
+        help=(
+            'We default to the "none" weighting scheme for uniform sampling and uniform loss'
+        ),
+    )
+    parser.add_argument(
+        "--logit_mean",
+        type=float,
+        default=0.0,
+        help="mean to use when using the `'logit_normal'` weighting scheme.",
+    )
+    parser.add_argument(
+        "--logit_std",
+        type=float,
+        default=1.0,
+        help="std to use when using the `'logit_normal'` weighting scheme.",
+    )
+    parser.add_argument(
+        "--mode_scale",
+        type=float,
+        default=1.29,
+        help="Scale of mode weighting scheme. Only effective when using the `'mode'` as the `weighting_scheme`.",
+    )
+
+
+def add_wan_specific_args(parser):
+    """Add Wan-specific arguments."""
+    parser.add_argument(
+        "--max_sequence_length",
+        type=int,
+        default=512,
+        help="Maximum sequence length for the Wan text encoder.",
+    )
+    parser.add_argument(
+        "--num_frames",
+        type=int,
+        default=1,
+        help="Number of video frames for training/validation. Use 1 for image-as-video DTI.",
+    )
+    parser.add_argument(
+        "--guidance_scale",
+        type=float,
+        default=5.0,
+        help="Guidance scale used during validation sample generation.",
+    )
+    parser.add_argument(
+        "--negative_prompt",
+        type=str,
+        default="",
+        help="Negative prompt used during validation sample generation.",
+    )
+    parser.add_argument(
+        "--weighting_scheme",
+        type=str,
+        default="none",
+        choices=["sigma_sqrt", "logit_normal", "mode", "cosmap", "none"],
+        help=(
+            'We default to the "none" weighting scheme for uniform sampling and uniform loss'
+        ),
+    )
+    parser.add_argument(
+        "--logit_mean",
+        type=float,
+        default=0.0,
+        help="mean to use when using the `'logit_normal'` weighting scheme.",
+    )
+    parser.add_argument(
+        "--logit_std",
+        type=float,
+        default=1.0,
+        help="std to use when using the `'logit_normal'` weighting scheme.",
+    )
+    parser.add_argument(
+        "--mode_scale",
+        type=float,
+        default=1.29,
+        help="Scale of mode weighting scheme. Only effective when using the `'mode'` as the `weighting_scheme`.",
+    )
+
+
 def parse_sdxl_args() -> argparse.Namespace:
     """Parse SDXL-specific arguments."""
     parser = argparse.ArgumentParser(description="Simple example of a training script.")
@@ -497,5 +605,70 @@ def parse_sana_args() -> argparse.Namespace:
         raise ValueError(
             "You must specify either --num_vectors or --initializer_token."
         )
+
+    return args
+
+
+def parse_flux2_args() -> argparse.Namespace:
+    """Parse FLUX.2-specific arguments."""
+    parser = argparse.ArgumentParser(description="FLUX.2 DTI training script.")
+    add_base_args(parser)
+    add_flux2_specific_args(parser)
+    add_dti_args(parser)
+    add_optimizer_args(parser)
+
+    parser.set_defaults(
+        max_train_steps=1000,
+        checkpointing_steps=100,
+        kappa=5e-5,
+        resolution=1024,
+    )
+
+    args = parser.parse_args()
+    env_local_rank = int(os.environ.get("LOCAL_RANK", -1))
+    if env_local_rank != -1 and env_local_rank != args.local_rank:
+        args.local_rank = env_local_rank
+
+    if args.train_data_dir is None:
+        raise ValueError("You must specify a train data directory.")
+
+    if args.num_vectors is None and args.initializer_token is None:
+        raise ValueError(
+            "You must specify either --num_vectors or --initializer_token."
+        )
+
+    return args
+
+
+def parse_wan_args() -> argparse.Namespace:
+    """Parse Wan-specific arguments."""
+    parser = argparse.ArgumentParser(description="Wan DTI training script.")
+    add_base_args(parser)
+    add_wan_specific_args(parser)
+    add_dti_args(parser)
+    add_optimizer_args(parser)
+
+    parser.set_defaults(
+        max_train_steps=1000,
+        checkpointing_steps=100,
+        kappa=5e-5,
+        resolution=512,
+    )
+
+    args = parser.parse_args()
+    env_local_rank = int(os.environ.get("LOCAL_RANK", -1))
+    if env_local_rank != -1 and env_local_rank != args.local_rank:
+        args.local_rank = env_local_rank
+
+    if args.train_data_dir is None:
+        raise ValueError("You must specify a train data directory.")
+
+    if args.num_vectors is None and args.initializer_token is None:
+        raise ValueError(
+            "You must specify either --num_vectors or --initializer_token."
+        )
+
+    if args.num_frames < 1:
+        raise ValueError("`--num_frames` must be >= 1.")
 
     return args

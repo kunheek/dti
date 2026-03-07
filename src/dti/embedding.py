@@ -91,11 +91,34 @@ class DtiTokenEmbedding(nn.Embedding):
             Added token ID(s) in the same type as input (token_id - original_vocab_size).
         """
         if isinstance(token_id, torch.Tensor):
-            return token_id - self.original_vocab_size
+            added = token_id - self.original_vocab_size
+            if (added < 0).any():
+                min_added = int(added.min().item())
+                raise ValueError(
+                    "Token ID maps below added-token range: "
+                    f"min_added={min_added}, original_vocab_size={self.original_vocab_size}. "
+                    "This usually indicates tokenizer/embedding vocab mismatch."
+                )
+            return added
         elif isinstance(token_id, list):
-            return [tid - self.original_vocab_size for tid in token_id]
+            added = [tid - self.original_vocab_size for tid in token_id]
+            if any(a < 0 for a in added):
+                min_added = min(added)
+                raise ValueError(
+                    "Token ID maps below added-token range: "
+                    f"min_added={min_added}, original_vocab_size={self.original_vocab_size}. "
+                    "This usually indicates tokenizer/embedding vocab mismatch."
+                )
+            return added
         elif isinstance(token_id, int):
-            return token_id - self.original_vocab_size
+            added = token_id - self.original_vocab_size
+            if added < 0:
+                raise ValueError(
+                    "Token ID maps below added-token range: "
+                    f"added_id={added}, original_vocab_size={self.original_vocab_size}. "
+                    "This usually indicates tokenizer/embedding vocab mismatch."
+                )
+            return added
         else:
             raise TypeError(
                 f"Unsupported type for token_id: {type(token_id)}. Must be int, list, or torch.Tensor."
@@ -314,11 +337,34 @@ class DtiTokenEmbeddingLegacy(nn.Embedding):
             Added token ID(s) in the same type as input (token_id - original_vocab_size).
         """
         if isinstance(token_id, torch.Tensor):
-            return token_id - self.original_vocab_size
+            added = token_id - self.original_vocab_size
+            if (added < 0).any():
+                min_added = int(added.min().item())
+                raise ValueError(
+                    "Token ID maps below added-token range: "
+                    f"min_added={min_added}, original_vocab_size={self.original_vocab_size}. "
+                    "This usually indicates tokenizer/embedding vocab mismatch."
+                )
+            return added
         elif isinstance(token_id, list):
-            return [tid - self.original_vocab_size for tid in token_id]
+            added = [tid - self.original_vocab_size for tid in token_id]
+            if any(a < 0 for a in added):
+                min_added = min(added)
+                raise ValueError(
+                    "Token ID maps below added-token range: "
+                    f"min_added={min_added}, original_vocab_size={self.original_vocab_size}. "
+                    "This usually indicates tokenizer/embedding vocab mismatch."
+                )
+            return added
         else:
-            return token_id - self.original_vocab_size
+            added = token_id - self.original_vocab_size
+            if added < 0:
+                raise ValueError(
+                    "Token ID maps below added-token range: "
+                    f"added_id={added}, original_vocab_size={self.original_vocab_size}. "
+                    "This usually indicates tokenizer/embedding vocab mismatch."
+                )
+            return added
 
     def resize_token_embeddings(
         self, new_num_tokens: int, pad_to_multiple_of: Optional[int] = None
