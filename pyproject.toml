@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "dti"
 version = "0.1.0"
-description = "Directional textual inversion"
+description = "Directional Textual Inversion"
 readme = "README.md"
 requires-python = ">=3.10, <3.13"
 license = {file = "LICENSE"}
@@ -14,8 +14,8 @@ authors = [
   {name = "NaHyeon Park", email = "julia19@kaist.ac.kr"},
 ]
 dependencies = [
-  "torch==2.8.0",
-  "torchvision==0.23.0",
+  "torch>=2.8.0,<=2.10.0",
+  "torchvision>=0.23.0,<=0.25.0",
   "accelerate==1.10.1",
   "diffusers==0.37.0",
   "huggingface-hub>=0.34.0,<1.0",
