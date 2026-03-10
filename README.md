@@ -183,10 +183,10 @@ dti/
 ## Citation
 
 ```bibtex
-@article{kim2025directional,
+@inproceedings{kim2026directional,
   title={Directional Textual Inversion for Personalized Text-to-Image Generation},
   author={Kim, Kunhee and Park, NaHyeon and Hong, Kibeom and Shim, Hyunjung},
-  journal={ICLR 2026},
+  booktitle={International Conference on Learning Representations},
   year={2026}
 }
 ```
