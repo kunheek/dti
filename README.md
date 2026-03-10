@@ -186,8 +186,8 @@ dti/
 @article{kim2025directional,
   title={Directional Textual Inversion for Personalized Text-to-Image Generation},
   author={Kim, Kunhee and Park, NaHyeon and Hong, Kibeom and Shim, Hyunjung},
-  journal={arXiv preprint arXiv:2512.13672},
-  year={2025}
+  journal={ICLR 2026},
+  year={2026}
 }
 ```
 
